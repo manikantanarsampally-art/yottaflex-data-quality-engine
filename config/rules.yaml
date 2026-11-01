@@ -1,0 +1,31 @@
+dataset_name: orders
+source_path: data/input/orders.csv
+customers_path: data/input/customers.csv
+database_path: data/output/quality_engine.db
+output_dir: data/output
+freshness_column: order_timestamp
+freshness_max_age_hours: 168
+allow_unexpected_columns: false
+required_columns:
+  - order_id
+  - customer_id
+  - order_timestamp
+  - quantity
+  - unit_price
+primary_key: order_id
+foreign_keys:
+  - column: customer_id
+    reference_dataset: customers
+    reference_column: customer_id
+range_rules:
+  - column: quantity
+    min: 1
+    max: 10000
+  - column: unit_price
+    min: 0
+    max: 1000000
+custom_rules:
+  - name: positive_order_total
+    description: quantity multiplied by unit_price must be greater than zero
+    expression: order_total > 0
+    severity: high

@@ -1,0 +1,11 @@
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+*.pyc
+data/output/
+*.db
+.DS_Store
+.venv-*/
+.venv312/
+data/generated/
